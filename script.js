@@ -1,10 +1,10 @@
 const box = document.getElementById("box");
 const startBtn = document.getElementById("startBtn");
+const gameArea = document.getElementById("gameArea");
 
 let score = 0;
 let gameActive = false;
 let timer = null;
-
 
 startBtn.onclick = function () {
     clearTimeout(timer);
@@ -20,15 +20,13 @@ startBtn.onclick = function () {
     spawnBox();
 };
 
-
 function spawnBox() {
     if (!gameActive) return;
 
-    const gameArea = document.getElementById("gameArea");
-    const boxSize = 50;
+    const size = 50;
 
-    const maxX = gameArea.clientWidth - boxSize;
-    const maxY = gameArea.clientHeight - boxSize;
+    const maxX = gameArea.clientWidth - size;
+    const maxY = gameArea.clientHeight - size;
 
     const x = Math.floor(Math.random() * maxX);
     const y = Math.floor(Math.random() * maxY);
@@ -36,8 +34,8 @@ function spawnBox() {
     box.style.left = x + "px";
     box.style.top = y + "px";
 
-    const color = document.getElementById("colorPicker").value;
-    box.style.backgroundColor = color;
+    box.style.backgroundColor =
+        document.getElementById("colorPicker").value;
 
     box.style.display = "block";
 
@@ -46,9 +44,7 @@ function spawnBox() {
     clearTimeout(timer);
 
     timer = setTimeout(() => {
-        if (gameActive) {
-            endGame();
-        }
+        if (gameActive) endGame();
     }, time);
 }
 
@@ -65,7 +61,6 @@ box.onclick = function () {
     spawnBox();
 };
 
-
 function endGame() {
     gameActive = false;
     clearTimeout(timer);
@@ -73,16 +68,8 @@ function endGame() {
     box.style.display = "none";
     startBtn.disabled = false;
 
+    alert("Game Over! Твої очки: " + score);
+
     document.getElementById("status").textContent =
         "Ти програв! Очки: " + score;
-
-    document.getElementById("finalScore").textContent =
-        "Твої очки: " + score;
-
-    document.getElementById("gameOverModal").style.display = "flex";
-}
-
-
-function closeModal() {
-    document.getElementById("gameOverModal").style.display = "none";
 }

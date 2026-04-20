@@ -1,58 +1,71 @@
-let box = document.getElementById("box");
+const box = document.getElementById("box");
+const startBtn = document.getElementById("startBtn");
+
 let score = 0;
 let gameActive = false;
 let timer = null;
 
-function startGame() {
+// ▶️ старт гри
+startBtn.onclick = function () {
     score = 0;
     gameActive = true;
 
     document.getElementById("score").textContent = score;
-    document.getElementById("status").textContent = "Гра почалась!";
+    document.getElementById("status").textContent = "Гра почалась";
 
     spawnBox();
-}
+};
 
+// 🔲 поява квадрата
 function spawnBox() {
     if (!gameActive) return;
 
-    let gameArea = document.getElementById("gameArea");
+    const gameArea = document.getElementById("gameArea");
 
-    let maxX = gameArea.clientWidth - 50;
-    let maxY = gameArea.clientHeight - 50;
+    const maxX = gameArea.clientWidth - 50;
+    const maxY = gameArea.clientHeight - 50;
 
-    let x = Math.random() * maxX;
-    let y = Math.random() * maxY;
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
 
     box.style.left = x + "px";
     box.style.top = y + "px";
 
-    // 🎨 КОЛІР (ТЕ, ЩО В ТЕБЕ НЕ ПРАЦЮВАЛО)
-    let color = document.getElementById("colorPicker").value;
+    // 🎨 колір
+    const color = document.getElementById("colorPicker").value;
     box.style.backgroundColor = color;
 
     box.style.display = "block";
 
-    let time = parseInt(document.getElementById("difficulty").value);
+    // ⏱️ час
+    const time = parseInt(document.getElementById("difficulty").value);
+
+    // ❗ ВАЖЛИВО: очищаємо старий таймер
+    clearTimeout(timer);
 
     timer = setTimeout(() => {
-        endGame();
+        if (gameActive) {
+            endGame();
+        }
     }, time);
 }
 
+// 👆 клік по квадрату
 box.onclick = function () {
     if (!gameActive) return;
-
-    clearTimeout(timer);
 
     score++;
     document.getElementById("score").textContent = score;
 
     box.style.display = "none";
 
+    // ❗ ВАЖЛИВО: зупиняємо таймер
+    clearTimeout(timer);
+
     spawnBox();
 };
 
+// ❌ кінець гри
 function endGame() {
     gameActive = false;
     box.style.display = "none";

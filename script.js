@@ -5,10 +5,14 @@ let score = 0;
 let gameActive = false;
 let timer = null;
 
-
+// ▶️ СТАРТ ГРИ
 startBtn.onclick = function () {
+    clearTimeout(timer); // очищаємо старий таймер
+
     score = 0;
     gameActive = true;
+
+    startBtn.disabled = true; // блокуємо кнопку під час гри
 
     document.getElementById("score").textContent = score;
     document.getElementById("status").textContent = "Гра почалась";
@@ -16,31 +20,32 @@ startBtn.onclick = function () {
     spawnBox();
 };
 
-
+// 🔲 СПАВН КВАДРАТА
 function spawnBox() {
     if (!gameActive) return;
 
     const gameArea = document.getElementById("gameArea");
 
-    const maxX = gameArea.clientWidth - 50;
-    const maxY = gameArea.clientHeight - 50;
+    const boxSize = 50;
 
-    const x = Math.random() * maxX;
-    const y = Math.random() * maxY;
+    const maxX = gameArea.clientWidth - boxSize;
+    const maxY = gameArea.clientHeight - boxSize;
+
+    const x = Math.floor(Math.random() * maxX);
+    const y = Math.floor(Math.random() * maxY);
 
     box.style.left = x + "px";
     box.style.top = y + "px";
 
- 
+    // 🎨 КОЛІР
     const color = document.getElementById("colorPicker").value;
     box.style.backgroundColor = color;
 
     box.style.display = "block";
 
-    
+    // ⏱️ ЧАС
     const time = parseInt(document.getElementById("difficulty").value);
 
- 
     clearTimeout(timer);
 
     timer = setTimeout(() => {
@@ -50,26 +55,29 @@ function spawnBox() {
     }, time);
 }
 
-
+// 👆 КЛІК ПО КВАДРАТУ
 box.onclick = function () {
     if (!gameActive) return;
+
+    clearTimeout(timer);
 
     score++;
     document.getElementById("score").textContent = score;
 
     box.style.display = "none";
 
-    
-    clearTimeout(timer);
-
     spawnBox();
 };
 
+// ❌ КІНЕЦЬ ГРИ
 function endGame() {
     gameActive = false;
+    clearTimeout(timer);
+
     box.style.display = "none";
 
-    
+    startBtn.disabled = false; // розблок кнопки
+
     alert("Game Over! Твої очки: " + score);
 
     document.getElementById("status").textContent =

@@ -7,12 +7,12 @@ let timer = null;
 
 // ▶️ СТАРТ ГРИ
 startBtn.onclick = function () {
-    clearTimeout(timer); // очищаємо старий таймер
+    clearTimeout(timer);
 
     score = 0;
     gameActive = true;
 
-    startBtn.disabled = true; // блокуємо кнопку під час гри
+    startBtn.disabled = true;
 
     document.getElementById("score").textContent = score;
     document.getElementById("status").textContent = "Гра почалась";
@@ -25,7 +25,6 @@ function spawnBox() {
     if (!gameActive) return;
 
     const gameArea = document.getElementById("gameArea");
-
     const boxSize = 50;
 
     const maxX = gameArea.clientWidth - boxSize;
@@ -37,13 +36,11 @@ function spawnBox() {
     box.style.left = x + "px";
     box.style.top = y + "px";
 
-    // 🎨 КОЛІР
     const color = document.getElementById("colorPicker").value;
     box.style.backgroundColor = color;
 
     box.style.display = "block";
 
-    // ⏱️ ЧАС
     const time = parseInt(document.getElementById("difficulty").value);
 
     clearTimeout(timer);
@@ -55,7 +52,7 @@ function spawnBox() {
     }, time);
 }
 
-// 👆 КЛІК ПО КВАДРАТУ
+// 👆 КЛІК
 box.onclick = function () {
     if (!gameActive) return;
 
@@ -75,11 +72,19 @@ function endGame() {
     clearTimeout(timer);
 
     box.style.display = "none";
-
-    startBtn.disabled = false; // розблок кнопки
-
-    alert("Game Over! Твої очки: " + score);
+    startBtn.disabled = false;
 
     document.getElementById("status").textContent =
         "Ти програв! Очки: " + score;
+
+    // 🔥 Popup замість alert
+    document.getElementById("finalScore").textContent =
+        "Твої очки: " + score;
+
+    document.getElementById("gameOverModal").style.display = "flex";
+}
+
+// ❌ Закриття popup
+function closeModal() {
+    document.getElementById("gameOverModal").style.display = "none";
 }

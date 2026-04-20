@@ -68,8 +68,10 @@ function endGame() {
     box.style.display = "none";
     startBtn.disabled = false;
 
-    alert("Game Over! Твої очки: " + score);
-
     document.getElementById("status").textContent =
         "Ти програв! Очки: " + score;
+
+    setTimeout(() => {
+        alert("Game Over! Твої очки: " + score);
+    }, 100);
 }

@@ -2,18 +2,47 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <title>Lab 5</title>
+    <title>Game</title>
+    <style>
+        #gameArea {
+            width: 400px;
+            height: 400px;
+            border: 2px solid black;
+            position: relative;
+        }
+
+        #box {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            display: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 
-    <h2>Введіть своє ім'я:</h2>
+<h2>Клікни на квадрат!</h2>
 
-    <input type="text" id="nameInput">
-    <button onclick="showMessage()">OK</button>
+<label>Колір:</label>
+<input type="color" id="colorPicker">
 
-    <p id="result"></p>
+<br><br>
 
-    <script src="script.js"></script>
+<label>Складність:</label>
+<select id="difficulty">
+    <option value="1500">Легка</option>
+    <option value="1000">Середня</option>
+    <option value="500">Важка</option>
+</select>
+
+<p>Очки: <span id="score">0</span></p>
+
+<div id="gameArea">
+    <div id="box"></div>
+</div>
+
+<script src="script.js"></script>
 
 </body>
 </html>

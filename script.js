@@ -5,7 +5,7 @@ let score = 0;
 let gameActive = false;
 let timer = null;
 
-// ▶️ старт гри
+
 startBtn.onclick = function () {
     score = 0;
     gameActive = true;
@@ -16,7 +16,7 @@ startBtn.onclick = function () {
     spawnBox();
 };
 
-// 🔲 поява квадрата
+
 function spawnBox() {
     if (!gameActive) return;
 
@@ -31,16 +31,16 @@ function spawnBox() {
     box.style.left = x + "px";
     box.style.top = y + "px";
 
-    // 🎨 колір
+ 
     const color = document.getElementById("colorPicker").value;
     box.style.backgroundColor = color;
 
     box.style.display = "block";
 
-    // ⏱️ час
+    
     const time = parseInt(document.getElementById("difficulty").value);
 
-    // ❗ ВАЖЛИВО: очищаємо старий таймер
+ 
     clearTimeout(timer);
 
     timer = setTimeout(() => {
@@ -50,7 +50,7 @@ function spawnBox() {
     }, time);
 }
 
-// 👆 клік по квадрату
+
 box.onclick = function () {
     if (!gameActive) return;
 
@@ -59,16 +59,18 @@ box.onclick = function () {
 
     box.style.display = "none";
 
-    // ❗ ВАЖЛИВО: зупиняємо таймер
+    
     clearTimeout(timer);
 
     spawnBox();
 };
 
-// ❌ кінець гри
 function endGame() {
     gameActive = false;
     box.style.display = "none";
+
+    
+    alert("Game Over! Твої очки: " + score);
 
     document.getElementById("status").textContent =
         "Ти програв! Очки: " + score;

@@ -5,9 +5,12 @@ const gameArea = document.getElementById("gameArea");
 let score = 0;
 let gameActive = false;
 let timer = null;
+let interval = null;
+let timeLeft = 0;
 
 startBtn.onclick = function () {
     clearTimeout(timer);
+    clearInterval(interval);
 
     score = 0;
     gameActive = true;
@@ -42,6 +45,19 @@ function spawnBox() {
     const time = parseInt(document.getElementById("difficulty").value);
 
     clearTimeout(timer);
+    clearInterval(interval);
+
+    timeLeft = time / 1000;
+    document.getElementById("timeLeft").textContent = timeLeft.toFixed(1);
+
+    interval = setInterval(() => {
+        timeLeft -= 0.1;
+        document.getElementById("timeLeft").textContent = timeLeft.toFixed(1);
+
+        if (timeLeft <= 0) {
+            clearInterval(interval);
+        }
+    }, 100);
 
     timer = setTimeout(() => {
         if (gameActive) endGame();
@@ -52,6 +68,7 @@ box.onclick = function () {
     if (!gameActive) return;
 
     clearTimeout(timer);
+    clearInterval(interval);
 
     score++;
     document.getElementById("score").textContent = score;
@@ -64,6 +81,7 @@ box.onclick = function () {
 function endGame() {
     gameActive = false;
     clearTimeout(timer);
+    clearInterval(interval);
 
     box.style.display = "none";
     startBtn.disabled = false;

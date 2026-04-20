@@ -5,7 +5,7 @@ let score = 0;
 let gameActive = false;
 let timer = null;
 
-// ▶️ СТАРТ ГРИ
+
 startBtn.onclick = function () {
     clearTimeout(timer);
 
@@ -20,7 +20,7 @@ startBtn.onclick = function () {
     spawnBox();
 };
 
-// 🔲 СПАВН КВАДРАТА
+
 function spawnBox() {
     if (!gameActive) return;
 
@@ -52,7 +52,6 @@ function spawnBox() {
     }, time);
 }
 
-// 👆 КЛІК
 box.onclick = function () {
     if (!gameActive) return;
 
@@ -66,7 +65,7 @@ box.onclick = function () {
     spawnBox();
 };
 
-// ❌ КІНЕЦЬ ГРИ
+
 function endGame() {
     gameActive = false;
     clearTimeout(timer);
@@ -77,14 +76,13 @@ function endGame() {
     document.getElementById("status").textContent =
         "Ти програв! Очки: " + score;
 
-    // 🔥 Popup замість alert
     document.getElementById("finalScore").textContent =
         "Твої очки: " + score;
 
     document.getElementById("gameOverModal").style.display = "flex";
 }
 
-// ❌ Закриття popup
+
 function closeModal() {
     document.getElementById("gameOverModal").style.display = "none";
 }

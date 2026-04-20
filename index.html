@@ -23,7 +23,6 @@
             position: absolute;
             display: none;
             cursor: pointer;
-            background-color: red;
         }
     </style>
 </head>
@@ -31,7 +30,7 @@
 
 <h2>Клікни на квадрат</h2>
 
-<button onclick="startGame()">Старт</button>
+<button id="startBtn">Старт</button>
 
 <br><br>
 
@@ -41,6 +40,11 @@
     <option value="2000">Середня (2 сек)</option>
     <option value="1500">Важка (1.5 сек)</option>
 </select>
+
+<br><br>
+
+<label>Колір:</label>
+<input type="color" id="colorPicker" value="#ff0000">
 
 <p>Очки: <span id="score">0</span></p>
 <p id="status"></p>

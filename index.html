@@ -2,12 +2,18 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <title>Game</title>
+    <title>Click Game</title>
     <style>
+        body {
+            text-align: center;
+            font-family: Arial;
+        }
+
         #gameArea {
-            width: 400px;
-            height: 400px;
+            width: 500px;
+            height: 500px;
             border: 2px solid black;
+            margin: 20px auto;
             position: relative;
         }
 
@@ -17,26 +23,27 @@
             position: absolute;
             display: none;
             cursor: pointer;
+            background-color: red;
         }
     </style>
 </head>
 <body>
 
-<h2>Клікни на квадрат!</h2>
+<h2>Клікни на квадрат</h2>
 
-<label>Колір:</label>
-<input type="color" id="colorPicker">
+<button onclick="startGame()">Старт</button>
 
 <br><br>
 
 <label>Складність:</label>
 <select id="difficulty">
-    <option value="1500">Легка</option>
-    <option value="1000">Середня</option>
-    <option value="500">Важка</option>
+    <option value="2000">Легка (2 сек)</option>
+    <option value="1500">Середня (1.5 сек)</option>
+    <option value="1000">Важка (1 сек)</option>
 </select>
 
 <p>Очки: <span id="score">0</span></p>
+<p id="status"></p>
 
 <div id="gameArea">
     <div id="box"></div>
